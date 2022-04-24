@@ -5,7 +5,7 @@ const c = canvas.getContext('2d')
 canvas.width = 1024;
 canvas.height = 576;
 
-const gravity = 0.2;
+const gravity = 0.7;
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -55,7 +55,6 @@ const keys = {
   },
 }
 
-let lastKey;
 
 const player = new Sprite({
   position: {
@@ -91,18 +90,21 @@ function animate() {
   player.velocity.x = 0;
   enemy.velocity.x = 0;
 
-  if(keys.a.presed && lastKey === 'a'){
-    player.velocity.x = -1;
-  } else if(keys.d.presed && lastKey === 'd'){
-    player.velocity.x = 1;
+
+  // player move (speed)
+  if(keys.a.presed && player.lastKey === 'a'){
+    player.velocity.x = -5;
+  } else if(keys.d.presed && player.lastKey === 'd'){
+    player.velocity.x = 5;
   }
 
 
 
+  // enemy move (speed)
   if(keys.ArrowLeft.presed && enemy.lastKey === 'ArrowLeft'){
-    enemy.velocity.x = -1;
+    enemy.velocity.x = -5;
   } else if(keys.ArrowRight.presed && enemy.lastKey === 'ArrowRight'){
-    enemy.velocity.x = 1;
+    enemy.velocity.x =5;
   }
 }
 
@@ -112,14 +114,14 @@ window.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'd':
       keys.d.presed = true;
-      lastKey = 'd';
+      player.lastKey = 'd';
       break
     case 'a':
       keys.a.presed = true;
-      lastKey = 'a';
+      player.lastKey = 'a';
       break
     case 'w':
-      player.velocity.y = -10;
+      player.velocity.y = -20;
       break
 
 
@@ -132,7 +134,7 @@ window.addEventListener('keydown', (event) => {
       enemy.lastKey = 'ArrowLeft';
       break
     case 'ArrowUp':
-      enemy.velocity.y = -10;
+      enemy.velocity.y = -20;
       break
 
   }
