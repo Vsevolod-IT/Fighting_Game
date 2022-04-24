@@ -15,6 +15,7 @@ class Sprite {
     this.position = position;
     this.velocity = velocity;
     this.height = 150;
+    this.lastKey;
   }
 
   draw(){
@@ -35,6 +36,26 @@ class Sprite {
   }
 }
 
+
+const keys = {
+  a: {
+    presed: false,
+  },
+  d: {
+    presed: false,
+  },
+  w: {
+    presed: false,
+  },
+  ArrowLeft: {
+    presed: false,
+  },
+  ArrowRight: {
+    presed: false,
+  },
+}
+
+let lastKey;
 
 const player = new Sprite({
   position: {
@@ -66,6 +87,23 @@ function animate() {
   c.fillRect(0,0, canvas.width, canvas.height);
   player.update();
   enemy.update();
+
+  player.velocity.x = 0;
+  enemy.velocity.x = 0;
+
+  if(keys.a.presed && lastKey === 'a'){
+    player.velocity.x = -1;
+  } else if(keys.d.presed && lastKey === 'd'){
+    player.velocity.x = 1;
+  }
+
+
+
+  if(keys.ArrowLeft.presed && enemy.lastKey === 'ArrowLeft'){
+    enemy.velocity.x = -1;
+  } else if(keys.ArrowRight.presed && enemy.lastKey === 'ArrowRight'){
+    enemy.velocity.x = 1;
+  }
 }
 
 animate();
@@ -73,11 +111,30 @@ animate();
 window.addEventListener('keydown', (event) => {
   switch (event.key) {
     case 'd':
-      player.velocity.x = 1;
+      keys.d.presed = true;
+      lastKey = 'd';
       break
     case 'a':
-      player.velocity.x = -1;
+      keys.a.presed = true;
+      lastKey = 'a';
       break
+    case 'w':
+      player.velocity.y = -10;
+      break
+
+
+    case 'ArrowRight':
+      keys.ArrowRight.presed = true;
+      enemy.lastKey = 'ArrowRight';
+      break
+    case 'ArrowLeft' :
+      keys.ArrowLeft.presed = true;
+      enemy.lastKey = 'ArrowLeft';
+      break
+    case 'ArrowUp':
+      enemy.velocity.y = -10;
+      break
+
   }
 })
 
@@ -85,10 +142,18 @@ window.addEventListener('keyup', (event) => {
   console.log(event.key)
   switch (event.key) {
     case 'd':
-      player.velocity.x = 0;
+      keys.d.presed = false;
       break
     case 'a':
-      player.velocity.x = 0;
+      keys.a.presed = false;
+      break
+
+
+    case 'ArrowRight':
+      keys.ArrowRight.presed = false;
+      break
+    case 'ArrowLeft':
+      keys.ArrowLeft.presed = false;
       break
   }
 })
