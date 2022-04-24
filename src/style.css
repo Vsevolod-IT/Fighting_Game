@@ -1,0 +1,29 @@
+*{
+    box-sizing: border-box;
+}
+
+.main-canvas{
+    position: relative;
+    display: inline-block;
+}
+
+.health-box{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+}
+
+.line-health{
+    background-color: yellow;
+    height: 30px;
+    width: 100%;
+}
+
+.timer-box{
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+}

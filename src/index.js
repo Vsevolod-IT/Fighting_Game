@@ -192,6 +192,7 @@ window.addEventListener('keydown', (event) => {
       break
     case ' ':
       player.attack();
+      player.isAttacking = true;
       break
 
 
@@ -208,6 +209,7 @@ window.addEventListener('keydown', (event) => {
       break
     case 'ArrowDown':
       enemy.isAttacking = true;
+      enemy.attack()
       break
 
   }
